@@ -106,6 +106,46 @@ void specialKey(int key, int x, int y)
     glutPostRedisplay();
 }
 
+void mountain(){
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0, 0, 0);
+    glVertex2f(100.0, 20.0);
+    glVertex2f(300.0, 20.0);
+    glVertex2f(200.0, 250.0);
+    glEnd();
+
+}
+
+void road(){
+
+    //lower pitch
+    glColor3f(0.2, 0.2, 0.2);
+    glBegin(GL_QUADS);
+    glVertex2f(0.0, 0.0);
+    glVertex2f(350.0, 0.0);
+    glVertex2f(350.0, 50.0);
+    glVertex2f(0.0, 50.0);
+    glEnd();
+
+    //middle z axis
+    glColor3f(0.5, 0.5, 0.5);
+    glBegin(GL_QUADS);
+    glVertex2f(0.0, 50.0);
+    glVertex2f(350.0, 50.0);
+    glVertex2f(350.0, 53.0);
+    glVertex2f(0, 53.0);
+    glEnd();
+
+    //up walking raod
+    glColor3f(0.8, 0.8, 0.8);
+    glBegin(GL_QUADS);
+    glVertex2f(0.0, 53.0);
+    glVertex2f(350.0, 53.0);
+    glVertex2f(350.0, 70.0);
+    glVertex2f(0.0, 70.0);
+    glEnd();
+}
+
 void Draw()
 {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -161,16 +201,10 @@ void Draw()
     glVertex2f(0.0, 350.0);
     glEnd();
 
-    // Draw grass
-    glColor3f(0.0, 0.8, 0.0);
-    glBegin(GL_QUADS);
-    glVertex2f(0.0, 0.0);
-    glVertex2f(350.0, 0.0);
-    glVertex2f(350.0, 25.0);
-    glVertex2f(0.0, 25.0);
-    glEnd();
+    mountain();
+    // Draw road
+    road();
 
-    // Draw house
     Sun();
     cloud();
 
@@ -184,7 +218,7 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glutInitWindowPosition(0, 0);
     glutInitWindowSize(500, 500);
-    glutCreateWindow("Lab Final");
+    glutCreateWindow("Lab Final Project");
     init();
     glutDisplayFunc(Draw);
     glutIdleFunc(Draw);

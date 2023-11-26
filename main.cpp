@@ -4,6 +4,7 @@
 #include <GL/gl.h>
 #include <cmath>
 
+float pi= 3.14156;
 float cloudX = 0.0f;
 float cloudY = 260.0f;
 float cloudSpeedY = 0.001f;
@@ -48,17 +49,17 @@ void cloud()
 {
     glPushMatrix();
     glTranslatef(cloudX, cloudY, 0.0f);
-    CircleFunc(9.0f, 0.0f, 15.0f, 0.7, 0.7, 0.7);
-    CircleFunc(-9.0f, 0.0f, 15.0f, 0.7, 0.7, 0.7);
-    CircleFunc(-18.0f, 5.0f, 15.0f, 0.7, 0.7, 0.7);
-    CircleFunc(18.0f, 5.0f, 15.0f, 0.7, 0.7, 0.7);
-    CircleFunc(0.0f, 5.0f, 15.0f, 0.7, 0.7, 0.7);
+    CircleFunc(9.0f, 0.0f, 15.0f, 0.7804, 0.7686, 0.7490);
+    CircleFunc(-9.0f, 0.0f, 15.0f, 0.7804, 0.7686, 0.7490);
+    CircleFunc(-18.0f, 5.0f, 15.0f, 0.7804, 0.7686, 0.7490);
+    CircleFunc(18.0f, 5.0f, 15.0f, 0.7804, 0.7686, 0.7490);
+    CircleFunc(0.0f, 5.0f, 15.0f, 0.7804, 0.7686, 0.7490);
 
-    CircleFunc(112.0f, 0.0f, 15.0f, 0.6, 0.6, 0.6);
-    CircleFunc(88.0f, 0.0f, 15.0f, 0.6, 0.6, 0.6);
-    CircleFunc(88.0f, 5.0f, 15.0f, 0.6, 0.6, 0.6);
-    CircleFunc(121.0f, 5.0f, 15.0f, 0.6, 0.6, 0.6);
-    CircleFunc(103.0f, 5.0f, 15.0f, 0.6, 0.6, 0.6);
+    CircleFunc(112.0f, 0.0f, 15.0f, 0.7490, 0.7804, 0.7804);
+    CircleFunc(88.0f, 0.0f, 15.0f, 0.7490, 0.7804, 0.7804);
+    CircleFunc(88.0f, 5.0f, 15.0f, 0.7490, 0.7804, 0.7804);
+    CircleFunc(121.0f, 5.0f, 15.0f, 0.7490, 0.7804, 0.7804);
+    CircleFunc(103.0f, 5.0f, 15.0f, 0.7490, 0.7804, 0.7804);
     glPopMatrix();
 
     cloudY += cloudSpeedY;
@@ -77,9 +78,22 @@ void cloud()
 void Sun()
 {
     glPushMatrix();
+
+    glLineWidth(3.0);
+    glColor3f(1, 1, 0);
+    glBegin(GL_LINES);
+    for (int i = 0; i < 12; ++i) {
+        float angle = i * (2.0 * pi / 12);
+        float rayLength = 20.0f;
+        glVertex2f(sunX, sunY);
+        glVertex2f(sunX + rayLength * cos(angle), sunY + rayLength * sin(angle));
+    }
+    glEnd();
     CircleFunc(sunX, sunY, 15.0f, 1, 0.5, 0);
+
     glPopMatrix();
 }
+
 
 void updateSun()
 {
@@ -404,6 +418,9 @@ void Draw()
     glVertex2f(350.0, 350.0);
     glVertex2f(0.0, 350.0);
     glEnd();
+
+
+    Sun();
     mountain();
     Hill();
 
@@ -416,7 +433,6 @@ void Draw()
     treeBush(320.0, 70.0);
     road();
 
-    Sun();
     cloud();
 
     car(carX, carY, 0.5, 0.5, 0.0); // Yellow car
